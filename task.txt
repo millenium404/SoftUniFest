@@ -1,0 +1,34 @@
+- Users:
+  - Client: username, password, email, phone (with validation),
+            reg date, credit card number, expire date (MM/YY),
+            notifications
+
+  - Merchant: username, password, email, phone, reg date, notifications
+
+  - Bank Staff: username, email, password
+
+- Discounts: merchant id, discount percent, start date, end date,
+              status (active, expired, rejected, waiting),
+              staff approval
+
+- POS terminals: merchant id, terminal No
+
+- Merchant panel:
+  - login with username, password
+  - add discount functionality - percent, start date, end date
+  - display discount status
+
+- Staff panel:
+  - login with username, password
+  - discounts to be approved by two staff members
+  - notify merchants by email if notifications are enabled
+  - list all merchants
+  - list all discounts
+  - list of all POS terminals
+  - list of all discounts waiting for approval
+
+- Client panel:
+  - list of all available discounts: Merchant name, discount,
+                                      start date, end date
+  - notify Clients if notifications are enabled:
+      Wednesday 7:30am, all new active discounts
