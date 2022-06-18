@@ -9,7 +9,7 @@ class Discount(models.Model):
     end_date = models.DateField(blank=True, null=True)
     status = models.CharField(max_length=15, default='waiting')
     staff_decisions = models.CharField(
-        max_length=100, blank=True, null=True)
+        max_length=100, default='')
 
     def __str__(self):
         return f'{self.id} - {self.user.username}'

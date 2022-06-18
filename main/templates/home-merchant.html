@@ -3,14 +3,16 @@
   <div class="columns">
   <div class="column">
     <h5 class="title is-5 has-text-light">Статус отстъпки:</h5>
+    {% if discounts %}
     {% for discount in discounts %}
-    <div class="box">
+    <div {% if discount.status == 'active' %}class="box has-background-success"{% else %}class="box has-background-warning"{% endif %}>
     <p><strong>Отстъпка: </strong>{{discount.percent}}%</p>
     <p><strong>Начало: </strong>{{discount.start_date}}</p>
     <p><strong>Край: </strong>{{discount.end_date}}</p>
     <p><strong>Статус: </strong>{{discount.status}}</p>
     </div>
     {% endfor %}
+    {% endif %}
   </div>
   <div class="column">
     <h6 class="title is-5 has-text-light mb-1">Данни за потребителя:</h6>

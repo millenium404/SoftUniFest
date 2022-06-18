@@ -21,8 +21,7 @@ def home_view(request):
         else:
             return redirect('merchant-view', id=user.id)
     if user.profile.is_staff:
-        return render(request, 'home-staff.html', context)
-
+        return redirect('staff-view')
 
 
 def register_user(request):

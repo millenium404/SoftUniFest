@@ -7,7 +7,8 @@ from accounts.views import (
     create_user_profile,
     change_password
     )
-from main.views import merchant_view
+from main.views import merchant_view, staff_view
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -15,6 +16,7 @@ urlpatterns = [
     path('login/', login_user, name='login'),
     path('register/', register_user, name='register'),
     path('profile/', create_user_profile, name='create-profile'),
+    path('staff/', staff_view, name='staff-view'),
     path('merchant/<int:id>', merchant_view, name='merchant-view'),
     path(
         'change-password/',
