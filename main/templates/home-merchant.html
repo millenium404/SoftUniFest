@@ -18,6 +18,27 @@
     <h6 class="title is-5 has-text-light mb-1">Данни за потребителя:</h6>
     <p class="has-text-light">Име: {{user.profile.name}}, email: {{user.email}}</p>
     <p class="has-text-light"> Първа регистрация: {{user.profile.reg_date|date:'d M Y'}}</p>
+    <form method="POST">
+    <div class="field is-grouped pt-2">
+        {% csrf_token %}
+      <div class="control">
+        <div class="select is-small">
+          <select name='notifications'>
+            {% if user.profile.notifications %}
+            <option>Изпращай известия</option>
+            <option>НЕ Изпращай известия</option>
+            {% else %}
+            <option>НЕ Изпращай известия</option>
+            <option>Изпращай известия</option>
+            {% endif %}
+          </select>
+        </div>
+      </div>
+      <div class="control">
+        <button class="button is-small is-rounded is-primary" type="submit">Запази</button>
+      </div>
+    </div>
+    </form>
     <h5 class="title is-5 has-text-light pt-5">Добави нова:</h5>
     <form method="POST">
       {% csrf_token %}
@@ -40,7 +61,7 @@
         </div>
       </div>
       <div class="control has-text-centered">
-        <button class="button is-primary" type="submit">Добави</button>
+        <button class="button is-rounded is-primary" type="submit">Добави</button>
       </div>
     </form>
   </div>

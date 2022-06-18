@@ -20,13 +20,24 @@ def merchant_view(request, id):
     if id == request.user.id:
         if request.POST:
             query = request.POST.dict()
-            discount = Discount(
-                user=request.user,
-                percent=query['discount'],
-                start_date = convert_date(query['start']),
-                end_date = convert_date(query['end'])
-            )
-            discount.save()
+            if 'notifications' in query:
+                profile = Profile.objects.get(user=request.user)
+                if request.POST['notifications'] == 'Изпращай известия':
+                    profile.notifications = True
+                else:
+                    profile.notifications = False
+                profile.save()
+            else:
+                try:
+                    discount = Discount(
+                        user=request.user,
+                        percent=query['discount'],
+                        start_date = convert_date(query['start']),
+                        end_date = convert_date(query['end'])
+                    )
+                    discount.save()
+                except:
+                    pass
         discounts = Discount.objects.filter(user=request.user)
         context['discounts'] = discounts
         return render(request, 'home-merchant.html', context)
