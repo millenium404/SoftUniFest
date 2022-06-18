@@ -17,6 +17,12 @@ DEBUG = env_debug
 ALLOWED_HOSTS = env_hosts
 
 LOGIN_URL = '/login/'
+
+CRONJOBS = [
+    ('59 * * * *', 'main.cronjobs.sync_databases'),
+    ('30 7 * * 4', 'main.cronjobs.send_mail_to_clients')
+]
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -26,6 +32,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_crontab',
     'widget_tweaks',
     'accounts',
     'main',

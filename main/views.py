@@ -5,15 +5,13 @@ from django.contrib.auth.decorators import login_required
 from .models import Discount, POS
 from accounts.models import Profile
 
-'''
-'discount': ['8'], 'start': ['01/01/01'], 'end': ['01/01/01']
-'''
+
 def convert_date(string):
     string = string.split('/')
     string = [int(num.lstrip('0')) for num in string]
     year = string[2] + 2000
-    d = datetime.date(string[2], string[1], string[0])
-    return d
+    date_object = datetime.date(string[2], string[1], string[0])
+    return date_object
 
 
 @login_required
