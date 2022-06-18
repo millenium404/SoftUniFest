@@ -1,4 +1,68 @@
 {% extends "base.html" %}
 {% block content %}
- <h1>I am client</h1>
+<script type="text/javascript">
+  function task(e)
+{
+  if(e.target.checked)
+  {
+    ///do post request with 1 in parameter
+    console.log("do post request with 1 in parameter");
+  }
+  else
+  {
+    ///do post request with 0 parameter
+    console.log("do post request with 0 parameter");
+  }
+}
+</script>
+<div class="columns">
+  <div class="column">
+    <h5 class="title is-5 has-text-light">Вашите данни:</h5>
+    <div class="box has-background-light">
+      <p><strong>Потребителско име: </strong>{{user.username}}</p>
+      <p><strong>Име и Фамилия: </strong>{{user.profile.name}}</p>
+      <p><strong>Имейл: </strong>{{user.email}}</p>
+      <p><strong>Край: </strong>{{user.profile.phone}}</p>
+      <p><strong>Карта No: </strong>{{card_number}}</p>
+      <p><strong>Валидност: </strong>{{user.profile.card_expires}}</p>
+      <form method="POST">
+      <div class="field is-grouped pt-2">
+          {% csrf_token %}
+        <div class="control">
+          <div class="select is-small">
+            <select name='notifications'>
+              {% if user.profile.notifications %}
+              <option>Изпращай известия</option>
+              <option>НЕ Изпращай известия</option>
+              {% else %}
+              <option>НЕ Изпращай известия</option>
+              <option>Изпращай известия</option>
+              {% endif %}
+            </select>
+          </div>
+        </div>
+        <div class="control">
+          <button class="button is-small is-rounded is-primary" type="submit">Запази</button>
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+  <div class="column">
+    <h5 class="title is-5 has-text-light">Налични търговски отстъпки:</h5>
+    {% for discount in discounts %}
+    {% if discount.status == 'active' %}
+    <div class="box has-background-success">
+    <p>
+    <strong>Търговец: </strong>{{discount.user.profile.name}}</p>
+    <strong>Отстъпка: </strong>{{discount.percent}}%
+    <strong>Начало: </strong>{{discount.start_date}}
+    <strong>Край: </strong>{{discount.end_date}}
+    <strong>Статус: </strong>{{discount.status}}
+    </p>
+    </div>
+    {% endif %}
+    {% endfor %}
+  </div>
+</div>
 {% endblock content %}

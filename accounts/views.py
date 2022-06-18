@@ -14,7 +14,7 @@ def home_view(request):
     user = request.user
     context = {}
     if user.profile.is_client:
-        return render(request, 'home-client.html', context)
+        return redirect('client-view')
     if user.profile.is_merchant:
         if not user.profile.password_changed:
             return redirect('change-password')
@@ -27,8 +27,14 @@ def home_view(request):
 def register_user(request):
     form = SignupForm(request.POST or None)
     if form.is_valid():
-            form.save()
-            return redirect('home')
+        form.save()
+        username = request.POST['username']
+        password = request.POST['password1']
+        user = authenticate(username=username, password=password)
+        if user is not None:
+            if user.is_active:
+                login(request, user)
+                return redirect('create-profile')
     context = {'form': form}
     return render(request, 'register.html', context)
 

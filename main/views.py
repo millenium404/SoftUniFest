@@ -36,6 +36,7 @@ def merchant_view(request, id):
         raise Http404
 
 
+@login_required
 def staff_view(request):
     discounts = Discount.objects.all()
     for discount in discounts:
@@ -63,3 +64,22 @@ def staff_view(request):
         'user_id': user_id
     }
     return render(request, 'home-staff.html', context)
+
+
+@login_required
+def client_view(request):
+    if request.POST:
+        profile = Profile.objects.get(user=request.user)
+        if request.POST['notifications'] == 'Изпращай известия':
+            profile.notifications = True
+        else:
+            profile.notifications = False
+        profile.save()
+    discounts = Discount.objects.all()
+    card_number = request.user.profile.card_number
+    card_number = card_number[0:4] + ' **** **** ' + card_number[-4:]
+    context = {
+        'discounts': discounts,
+        'card_number': card_number
+    }
+    return render(request, 'home-client.html', context)
