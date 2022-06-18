@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>ОТСТЪПКИ ЗА ПАЗАРУВАНЕ С POS - ПОЩЕНСКА БАНКА</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Questrial&display=swap" rel="stylesheet">
+    <!-- Bulma Version 0.9.0-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+
+<body>
+    <section class="hero is-dark is-fullheight">
+        <div class="hero-body">
+            <div class="container has-text-centered">
+                <div class="column is-4 is-offset-4">
+                    <h3 class="title has-text-light">Вход</h3>
+                    <hr class="login-hr">
+                    <p class="subtitle has-text-light">Влезте в акаунта си, за да продължите.</p>
+                    <div class="box">
+                        <figure class="avatar">
+                            <img src="/static/img/logo.png">
+                        </figure>
+                        <p class="menu-label has-text-centered has-text-black pb-5">
+                        <strong>ОТСТЪПКИ ЗА ПАЗАРУВАНЕ С POS</strong>
+                        </p>
+                        <form method="POST">
+                            {% csrf_token %}
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input is-large" type="text" name="username" placeholder="Потребителско Име" autofocus="">
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <div class="control">
+                                    <input class="input is-large" type="password" name="password" placeholder="Парола">
+                                </div>
+                            </div>
+                            {% if helper %}
+                            <p class="has-text-danger pb-2">{{ helper }}</p>
+                            {% endif %}
+                            <div class="field">
+                                <label class="checkbox">
+                  <input type="checkbox">
+                  Запомни ме
+                </label>
+                            </div>
+                            <button class="button is-block is-link is-large is-fullwidth">Вход <i class="fa fa-sign-in" aria-hidden="true"></i></button>
+                        </form>
+                    </div>
+                    <p class="has-text-light">
+                        <a href="{% url 'register' %}">Регистрация</a> &nbsp;·&nbsp;
+                        <a href="../">Забравена Парола</a> &nbsp;·&nbsp;
+                        <a href="../">Помощ</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

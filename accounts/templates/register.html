@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Регистрация - Потребител</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css?family=Questrial&display=swap" rel="stylesheet">
+    <!-- Bulma Version 0.9.0-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <script src="https://unpkg.com/htmx.org@1.1.0"></script>
+</head>
+
+<body id="main">
+  <script type="text/javascript">
+  function submitform()
+  {
+    document.register_user.submit();
+  }
+  </script>
+  {% load widget_tweaks %}
+<section class="hero is-dark is-fullheight">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <div class="column is-4 is-offset-4">
+        <h3 class="title has-text-light">Регистрация</h3>
+        <hr class="login-hr">
+        <p class="subtitle has-text-light">Създайте акаунт, за да продължите.</p>
+          <div class="box" id="box">
+            <figure class="avatar">
+            <img src="/static/img/logo.png">
+            </figure>
+            <p class="menu-label has-text-centered has-text-black">
+            <strong>ОТСТЪПКИ ЗА ПАЗАРУВАНЕ С POS</strong>
+            </p>
+            <form name="register_user" method="POST">
+              <div class="box has-text-left">
+              {% csrf_token %}
+              {% for field in form %}
+                <p>
+                {{ field.label_tag }}<br>
+                {{ field|add_class:"input mb-3" }}
+                {% if field.help_text %}
+                  <small class="pt-5" style="display: none">{{ field.help_text }}</small>
+                {% endif %}
+                {% for error in field.errors %}
+                  <p style="color: red">{{ error }}</p>
+                {% endfor %}
+                </p>
+              {% endfor %}
+              </div>
+                <div id="replaceMe">
+                <button class="button is-block is-success is-large is-fullwidth">Регистрация <i class="fa fa-sign-in"></i></button>
+                </div>
+              </form>
+          </div>
+      <p class="has-text-light">
+      <a href="{% url 'home' %}">Начало</a> &nbsp;·&nbsp;
+      <a href="{% url 'login' %}">Вход</a> &nbsp;·&nbsp;
+      <a href="../">Помощ</a>
+      </p>
+      </div>
+    </div>
+  </div>
+</section>
+</body>
+
+</html>

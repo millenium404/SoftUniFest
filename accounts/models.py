@@ -12,3 +12,7 @@ class Profile(models.Model):
     is_staff = models.BooleanField(blank=True, null=True)
     is_client = models.BooleanField(blank=True, null=True)
     is_merchant = models.BooleanField(blank=True, null=True)
+    password_changed = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f'{self.user.username} Profile'
