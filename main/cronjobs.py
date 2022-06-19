@@ -3,7 +3,6 @@ from django.contrib.auth.models import User
 from .models import Discount
 
 
-
 def send_mail_to_clients():
     users = User.objects.all()
     discounts = Discount.objects.all().filter_by(status='active')
@@ -21,9 +20,18 @@ def send_mail_to_clients():
                     )
 
 
-def send_mail_to_merchants():
-    pass
-
-
+def send_mail_to_merchants(user_id, discount_id):
+    user = Users.objects.get(id=user_id)
+    discount = Discount.objects.get(id=discount_id)
+    if discount.status == 'active':
+        message_content = f'''Здравейте, имате активирана отстъпка:
+{discount.id} за периода от {discount.start_date}, {discount.end_date}'''
+        send_mail(
+                    'Активна отстъпка',
+                    message_content,
+                    'pos@postbank.bg',
+                    [user.email],
+                    fail_silently=False,
+                )
 def sync_databases():
     pass

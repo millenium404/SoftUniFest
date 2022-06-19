@@ -3,6 +3,7 @@ from django.shortcuts import render,redirect
 from django.http import Http404
 from django.contrib.auth.decorators import login_required
 from .models import Discount, POS
+from .cronjobs import send_mail_to_merchants
 from accounts.models import Profile
 
 
@@ -61,6 +62,7 @@ def staff_view(request):
         discount = Discount.objects.get(id=discount_id)
         discount.staff_decisions += str(request.user.id) + ','
         discount.save()
+        send_mail_to_merchants(discount.user.id, discount.id)
         return redirect('staff-view')
     merchants = Profile.objects.filter(is_merchant=True)
     discounts = Discount.objects.all()
